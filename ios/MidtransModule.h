@@ -5,7 +5,11 @@
 #import <React/RCTBridgeModule.h>
 #endif
 
-@interface MidtransModule : NSObject <RCTBridgeModule>
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <MidtransKit/MidtransKit.h>
+
+@interface MidtransModule : UIViewController <RCTBridgeModule, MidtransUIPaymentViewControllerDelegate>
 
 @end
   

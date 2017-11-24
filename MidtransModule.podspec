@@ -1,4 +1,3 @@
-
 Pod::Spec.new do |s|
   s.name         = "MidtransModule"
   s.version      = "1.0.0"
@@ -18,5 +17,3 @@ Pod::Spec.new do |s|
   s.dependency "MidtransKit"
 
 end
-
-  

@@ -1,6 +1,5 @@
 
 #import "MidtransModule.h"
-#import <MidtransKit/MidtransKit.h>
 #import <React/RCTLog.h>
 
 @implementation MidtransModule
@@ -13,50 +12,94 @@ RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
                   :(NSDictionary*) transRequest
-                  : (NSDictionary*) itemDetails
+                  : (NSArray*) items
                   : (NSDictionary*) creditCardOptions
                   : (NSDictionary*) mapUserDetail
                   : (NSDictionary*) optionColorTheme
                   : (NSDictionary*) optionFont
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  reject:(RCTPromiseRejectBlock)reject){
+                  :(RCTResponseSenderBlock)resultCheckOut){
     
     [CONFIG setClientKey:[optionConect valueForKey:@"clientKey"]
              environment:MidtransServerEnvironmentSandbox
        merchantServerURL:[optionConect valueForKey:@"urlMerchant"]];
     
-    MidtransItemDetail *itemDetail =
-    [[MidtransItemDetail alloc] initWithItemID:[itemDetails valueForKey:@"id"]
-                                          name:[itemDetails valueForKey:@"name"]
-                                         price:[itemDetails valueForKey:@"price"]
-                                      quantity:[itemDetails valueForKey:@"qty"]];
+    NSMutableArray *itemitems = [[NSMutableArray alloc] init];
+    for (NSDictionary *ele in items) {
+        MidtransItemDetail *tmp =
+        [[MidtransItemDetail alloc] initWithItemID:[ele valueForKey:@"id"]
+                                              name:[ele valueForKey:@"name"]
+                                             price:[ele valueForKey:@"price"]
+                                          quantity:[ele valueForKey:@"qty"]];
+        [itemitems addObject:tmp];
+    }
+    
+    MidtransAddress *shippingAddress = [MidtransAddress addressWithFirstName:[mapUserDetail valueForKey:@"fullName"]
+                                                                    lastName:@""
+                                                                       phone:[mapUserDetail valueForKey:@"phoneNumber"]
+                                                                     address:[mapUserDetail valueForKey:@"address"]
+                                                                        city:[mapUserDetail valueForKey:@"city"]
+                                                                  postalCode:[mapUserDetail valueForKey:@"zipcode"]
+                                                                 countryCode:[mapUserDetail valueForKey:@"country"]];
+    MidtransAddress *billingAddress = [MidtransAddress addressWithFirstName:[mapUserDetail valueForKey:@"fullName"]
+                                                                    lastName:@""
+                                                                       phone:[mapUserDetail valueForKey:@"phoneNumber"]
+                                                                     address:[mapUserDetail valueForKey:@"address"]
+                                                                        city:[mapUserDetail valueForKey:@"city"]
+                                                                  postalCode:[mapUserDetail valueForKey:@"zipcode"]
+                                                                 countryCode:[mapUserDetail valueForKey:@"country"]];
     
     MidtransCustomerDetails *customerDetail =
     [[MidtransCustomerDetails alloc] initWithFirstName:[mapUserDetail valueForKey:@"fullName"]
-                                              lastName:[mapUserDetail valueForKey:@"lastname"]
+                                              lastName:@"lastname"
                                                  email:[mapUserDetail valueForKey:@"email"]
                                                  phone:[mapUserDetail valueForKey:@"phoneNumber"]
-                                       shippingAddress:[mapUserDetail valueForKey:@"address"]
-                                        billingAddress:[mapUserDetail valueForKey:@"address"]];
+                                       shippingAddress:shippingAddress
+                                        billingAddress:billingAddress];
     
+    NSNumber *totalAmount = [NSNumber numberWithInt:[[transRequest valueForKey:@"totalAmount"] intValue]];
     MidtransTransactionDetails *transactionDetail =
     [[MidtransTransactionDetails alloc] initWithOrderID:[transRequest valueForKey:@"transactionId"]
-                                         andGrossAmount:[transRequest valueForKey:@"totalAmount"]];
+                                         andGrossAmount:totalAmount];
     
     [[MidtransMerchantClient shared]
      requestTransactionTokenWithTransactionDetails:transactionDetail
-     itemDetails:[NSArray arrayWithObjects:itemDetail, nil]
+     itemDetails:itemitems
      customerDetails:customerDetail
-     completion:^(MidtransTransactionTokenResponse *token, NSError *error)
-     {
+     customField:nil
+     binFilter:nil
+     transactionExpireTime:nil
+     completion:^(MidtransTransactionTokenResponse * _Nullable token, NSError * _Nullable error) {
          if (token) {
-             NSLog(@"%@", token);
+             UIViewController *ctrl = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+             
+             MidtransUIPaymentViewController *vc = [[MidtransUIPaymentViewController alloc] initWithToken:token];
+             
+             [ctrl presentViewController:vc animated:NO completion:nil];
+             //set the delegate
+             vc.paymentDelegate = self;
          }
          else {
-             NSLog(@"%s", "GAGAL");
+             NSLog(@"%@", error);
          }
      }];
 };
 
+#pragma mark - MidtransUIPaymentViewControllerDelegate
+
+- (void)paymentViewController:(MidtransUIPaymentViewController *)viewController paymentSuccess:(MidtransTransactionResult *)result {
+    NSLog(@"success: %@", result);
+}
+
+- (void)paymentViewController:(MidtransUIPaymentViewController *)viewController paymentFailed:(NSError *)error {
+//    [self showAlertError:error];
+}
+
+- (void)paymentViewController:(MidtransUIPaymentViewController *)viewController paymentPending:(MidtransTransactionResult *)result {
+    NSLog(@"pending: %@", result);
+}
+
+- (void)paymentViewController_paymentCanceled:(MidtransUIPaymentViewController *)viewController {
+    NSLog(@"canceled");
+}
 @end
   

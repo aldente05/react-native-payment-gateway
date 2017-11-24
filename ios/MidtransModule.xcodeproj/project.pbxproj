@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4F645F166B97F54ADF28AE70 /* libPods-MidtransModule.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B9A1833CFBC8D8136E02F8 /* libPods-MidtransModule.a */; };
 		B3E7B58A1CC2AC0600A0062D /* MidtransModule.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* MidtransModule.m */; };
 /* End PBXBuildFile section */
 
@@ -25,11 +24,8 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libMidtransModule.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMidtransModule.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		636CB06701F3068C9351EC99 /* Pods-MidtransModule.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MidtransModule.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MidtransModule/Pods-MidtransModule.debug.xcconfig"; sourceTree = "<group>"; };
-		A3EED3B195ECCE335482DD45 /* Pods-MidtransModule.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MidtransModule.release.xcconfig"; path = "Pods/Target Support Files/Pods-MidtransModule/Pods-MidtransModule.release.xcconfig"; sourceTree = "<group>"; };
 		B3E7B5881CC2AC0600A0062D /* MidtransModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidtransModule.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* MidtransModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidtransModule.m; sourceTree = "<group>"; };
-		E9B9A1833CFBC8D8136E02F8 /* libPods-MidtransModule.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MidtransModule.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,7 +33,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F645F166B97F54ADF28AE70 /* libPods-MidtransModule.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,26 +53,7 @@
 				B3E7B5881CC2AC0600A0062D /* MidtransModule.h */,
 				B3E7B5891CC2AC0600A0062D /* MidtransModule.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
-				691C161A0806A556A94F9CE1 /* Pods */,
-				D14E8EB65A947F84A2B3BFE0 /* Frameworks */,
 			);
-			sourceTree = "<group>";
-		};
-		691C161A0806A556A94F9CE1 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				636CB06701F3068C9351EC99 /* Pods-MidtransModule.debug.xcconfig */,
-				A3EED3B195ECCE335482DD45 /* Pods-MidtransModule.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		D14E8EB65A947F84A2B3BFE0 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				E9B9A1833CFBC8D8136E02F8 /* libPods-MidtransModule.a */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,11 +63,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "MidtransModule" */;
 			buildPhases = (
-				6FFE32042AFD24BA1FC573CD /* [CP] Check Pods Manifest.lock */,
 				58B511D71A9E6C8500147676 /* Sources */,
 				58B511D81A9E6C8500147676 /* Frameworks */,
 				58B511D91A9E6C8500147676 /* CopyFiles */,
-				A3082B044282A20CC59B1334 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -132,45 +106,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		6FFE32042AFD24BA1FC573CD /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MidtransModule-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A3082B044282A20CC59B1334 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MidtransModule/Pods-MidtransModule-resources.sh",
-				"$PODS_CONFIGURATION_BUILD_DIR/MidtransKit/MidtransKit.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MidtransModule/Pods-MidtransModule-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		58B511D71A9E6C8500147676 /* Sources */ = {
@@ -267,13 +202,14 @@
 		};
 		58B511F01A9E6C8500147676 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 636CB06701F3068C9351EC99 /* Pods-MidtransModule.debug.xcconfig */;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../../ios/**",
 					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",
+					"$(SRCROOT)/../../../node_modules/react-native-payment-gateway/ios/**",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(inherited)",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
@@ -284,13 +220,14 @@
 		};
 		58B511F11A9E6C8500147676 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3EED3B195ECCE335482DD45 /* Pods-MidtransModule.release.xcconfig */;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../../ios/**",
 					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",
+					"$(SRCROOT)/../../../node_modules/react-native-payment-gateway/ios/**",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(inherited)",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";

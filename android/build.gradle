@@ -31,21 +31,22 @@ repositories {
     google()
     // Add the midtrans repository into the list of repositories
     maven { url "http://dl.bintray.com/pt-midtrans/maven" }
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
     // For using the Veritrans Sandbox
-    compile 'com.midtrans:corekit:1.12.0-SANDBOX'
+    api 'com.midtrans:corekit:1.15.0-SANDBOX'
 
     // For using the Veritrans Productio
     // compile 'com.midtrans:corekit:1.4.2'
 
     // For using the Midtrans Sandbox
-    compile 'com.midtrans:uikit:1.12.0-SANDBOX' // change the number to the latest version
+    api 'com.midtrans:uikit:1.15.0-SANDBOX' // change the number to the latest version
 
     // For using the Midtrans Production
     //compile 'com.midtrans:uikit:1.10.0' // change the number to the latest version
 
-    compile 'com.facebook.react:react-native:+'
+    api 'com.facebook.react:react-native:+'
 }
   

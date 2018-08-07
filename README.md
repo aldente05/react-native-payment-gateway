@@ -23,8 +23,8 @@ merchant backend [NODE JS](https://github.com/aldente05/merchant-server-midtrans
 
 change Podfile into this or lastest version
 
-#### pod 'MidtransCoreKit', '~> 1.7' 
-#### pod 'MidtransKit', '~> 1.7'
+#### pod 'MidtransCoreKit', '~> 1.13.1' 
+#### pod 'MidtransKit', '~> 1.13.1'
 
 1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
 2. Go to `node_modules` ➜ `react-native-payment-gateway` and add `ReactNativeMidtrans.xcodeproj`

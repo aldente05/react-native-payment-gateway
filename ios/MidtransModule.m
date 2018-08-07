@@ -65,9 +65,6 @@ RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
      requestTransactionTokenWithTransactionDetails:transactionDetail
      itemDetails:itemitems
      customerDetails:customerDetail
-     customField:nil
-     binFilter:nil
-     transactionExpireTime:nil
      completion:^(MidtransTransactionTokenResponse * _Nullable token, NSError * _Nullable error) {
          if (token) {
              UIViewController *ctrl = [[[[UIApplication sharedApplication] delegate] window] rootViewController];

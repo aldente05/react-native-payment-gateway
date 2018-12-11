@@ -11,18 +11,18 @@
 RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
-                  :(NSDictionary*) transRequest
+                  : (NSDictionary*) transRequest
                   : (NSArray*) items
                   : (NSDictionary*) creditCardOptions
                   : (NSDictionary*) mapUserDetail
                   : (NSDictionary*) optionColorTheme
                   : (NSDictionary*) optionFont
-                  :(RCTResponseSenderBlock)resultCheckOut){
-    
+                  : (RCTResponseSenderBlock)callback){
+
     [CONFIG setClientKey:[optionConect valueForKey:@"clientKey"]
-             environment:MidtransServerEnvironmentSandbox
+             environment:[optionConect valueForKey:@"sandbox"] ? MidtransServerEnvironmentSandbox : MidtransServerEnvironmentProduction
        merchantServerURL:[optionConect valueForKey:@"urlMerchant"]];
-    
+
     NSMutableArray *itemitems = [[NSMutableArray alloc] init];
     for (NSDictionary *ele in items) {
         MidtransItemDetail *tmp =
@@ -32,7 +32,7 @@ RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
                                           quantity:[ele valueForKey:@"qty"]];
         [itemitems addObject:tmp];
     }
-    
+
     MidtransAddress *shippingAddress = [MidtransAddress addressWithFirstName:[mapUserDetail valueForKey:@"fullName"]
                                                                     lastName:@""
                                                                        phone:[mapUserDetail valueForKey:@"phoneNumber"]
@@ -47,7 +47,7 @@ RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
                                                                         city:[mapUserDetail valueForKey:@"city"]
                                                                   postalCode:[mapUserDetail valueForKey:@"zipcode"]
                                                                  countryCode:[mapUserDetail valueForKey:@"country"]];
-    
+
     MidtransCustomerDetails *customerDetail =
     [[MidtransCustomerDetails alloc] initWithFirstName:[mapUserDetail valueForKey:@"fullName"]
                                               lastName:@"lastname"
@@ -55,48 +55,49 @@ RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
                                                  phone:[mapUserDetail valueForKey:@"phoneNumber"]
                                        shippingAddress:shippingAddress
                                         billingAddress:billingAddress];
-    
+
     NSNumber *totalAmount = [NSNumber numberWithInt:[[transRequest valueForKey:@"totalAmount"] intValue]];
     MidtransTransactionDetails *transactionDetail =
     [[MidtransTransactionDetails alloc] initWithOrderID:[transRequest valueForKey:@"transactionId"]
                                          andGrossAmount:totalAmount];
-    
+
     [[MidtransMerchantClient shared]
      requestTransactionTokenWithTransactionDetails:transactionDetail
      itemDetails:itemitems
      customerDetails:customerDetail
-     completion:^(MidtransTransactionTokenResponse * _Nullable token, NSError * _Nullable error) {
+     completion:^(MidtransTransactionTokenResponse * _Nullable token, NSError *_Nullable error) {
          if (token) {
              UIViewController *ctrl = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-             
+
              MidtransUIPaymentViewController *vc = [[MidtransUIPaymentViewController alloc] initWithToken:token];
-             
+
              [ctrl presentViewController:vc animated:NO completion:nil];
              //set the delegate
              vc.paymentDelegate = self;
+
+             //callback(@[@"init", [NSNull null]]);
          }
          else {
-             NSLog(@"%@", error);
+             //callback(@[error.localizedDescription, [NSNull null]]);
          }
      }];
 };
 
 #pragma mark - MidtransUIPaymentViewControllerDelegate
 
-- (void)paymentViewController:(MidtransUIPaymentViewController *)viewController paymentSuccess:(MidtransTransactionResult *)result {
-    NSLog(@"success: %@", result);
+- (void)paymentViewController:(MidtransUIPaymentViewController *)viewController paymentSuccess:(MidtransTransactionResult *)result{
+    RCTLogInfo(result);
 }
 
 - (void)paymentViewController:(MidtransUIPaymentViewController *)viewController paymentFailed:(NSError *)error {
-//    [self showAlertError:error];
+    RCTLogInfo(error);
 }
 
 - (void)paymentViewController:(MidtransUIPaymentViewController *)viewController paymentPending:(MidtransTransactionResult *)result {
-    NSLog(@"pending: %@", result);
+    RCTLogInfo(result);
 }
 
 - (void)paymentViewController_paymentCanceled:(MidtransUIPaymentViewController *)viewController {
-    NSLog(@"canceled");
+    RCTLogInfo(@"Cancel Transaction");
 }
 @end
-  

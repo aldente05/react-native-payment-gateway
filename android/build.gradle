@@ -36,17 +36,16 @@ repositories {
 
 dependencies {
     // For using the Veritrans Sandbox
-    api 'com.midtrans:corekit:1.15.0-SANDBOX'
+    api 'com.midtrans:corekit:1.21.2-SANDBOX'
 
-    // For using the Veritrans Productio
-    // compile 'com.midtrans:corekit:1.4.2'
+    // For using the Veritrans Production
+    // compile 'com.midtrans:corekit:1.21.2'
 
     // For using the Midtrans Sandbox
-    api 'com.midtrans:uikit:1.15.0-SANDBOX' // change the number to the latest version
+    api 'com.midtrans:uikit:1.21.2-SANDBOX' // change the number to the latest version
 
     // For using the Midtrans Production
-    //compile 'com.midtrans:uikit:1.10.0' // change the number to the latest version
+    //compile 'com.midtrans:uikit:1.21.2' // change the number to the latest version
 
     api 'com.facebook.react:react-native:+'
 }
-  

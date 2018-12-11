@@ -75,10 +75,10 @@ RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
              //set the delegate
              vc.paymentDelegate = self;
 
-             //callback(@[@"init", [NSNull null]]);
+             callback(@[@"init", [NSNull null]]);
          }
          else {
-             //callback(@[error.localizedDescription, [NSNull null]]);
+             callback(@[error.localizedDescription, [NSNull null]]);
          }
      }];
 };
@@ -86,15 +86,15 @@ RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
 #pragma mark - MidtransUIPaymentViewControllerDelegate
 
 - (void)paymentViewController:(MidtransUIPaymentViewController *)viewController paymentSuccess:(MidtransTransactionResult *)result{
-    RCTLogInfo(result);
+    RCTLogInfo(@"%@", result);
 }
 
 - (void)paymentViewController:(MidtransUIPaymentViewController *)viewController paymentFailed:(NSError *)error {
-    RCTLogInfo(error);
+    RCTLogInfo(@"%@", error);
 }
 
 - (void)paymentViewController:(MidtransUIPaymentViewController *)viewController paymentPending:(MidtransTransactionResult *)result {
-    RCTLogInfo(result);
+    RCTLogInfo(@"%@", result);
 }
 
 - (void)paymentViewController_paymentCanceled:(MidtransUIPaymentViewController *)viewController {

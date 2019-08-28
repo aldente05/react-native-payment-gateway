@@ -61,6 +61,13 @@ RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
     [[MidtransTransactionDetails alloc] initWithOrderID:[transRequest valueForKey:@"transactionId"]
                                          andGrossAmount:totalAmount];
 
+MidtransUIFontSource fontSource =
+[[MidtransUIFontSource alloc] initWithFontNameBold:font_name
+                                   fontNameRegular:font_name
+                                     fontNameLight:font_name];
+[MidtransUIThemeManager applyCustomThemeColor:themeColor
+                                    themeFont:fontSource];
+
     [[MidtransMerchantClient shared]
      requestTransactionTokenWithTransactionDetails:transactionDetail
      itemDetails:itemitems
